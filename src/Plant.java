@@ -12,22 +12,21 @@ public class Plant {
     private LocalDate watering;
     private int frequencyOfWatering;
 
-    public Plant(String name, String notes, LocalDate planted, LocalDate watering, int frequencyOfWatering) {
+    public Plant(String name, String notes, LocalDate planted, LocalDate watering, int frequencyOfWatering) throws PlantException {
         this.name = name;
         this.notes = notes;
-        this.planted = planted;
-        this.watering = watering;
-        this.frequencyOfWatering = frequencyOfWatering;
+        setPlanted(planted);
+        setFrequencyOfWatering(frequencyOfWatering);
+        setWatering(watering);
     }
 
-    public Plant(String name, int frequencyOfWatering) {
-        this(name, "", LocalDate.now(), LocalDate.now(), frequencyOfWatering );
+    public Plant(String name, int frequencyOfWatering) throws PlantException {
+        this(name, "", LocalDate.now(), LocalDate.now(), frequencyOfWatering);
     }
 
-    public Plant(String name) {
-        this(name, DEFAULT_WATERING_FREQUENCY );
+    public Plant(String name) throws PlantException {
+        this(name, DEFAULT_WATERING_FREQUENCY);
     }
-
 
     public String getWateringInfo() {
         return "Rostlina " + name +
@@ -43,24 +42,39 @@ public class Plant {
         return watering.plusDays(frequencyOfWatering);
     }
 
-    public void doWateringNow(){
-        this.watering = LocalDate.now();
+    public void doWateringNow() throws PlantException {
+        setWatering(LocalDate.now());
     }
 
-    public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
 
-    public String getNotes() {return notes;}
-    public void setNotes(String notes) {this.notes = notes;}
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public LocalDate getPlanted() {return planted;}
-    public void setPlanted(LocalDate planted) {this.planted = planted;}
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
 
-    public LocalDate getWatering() {return watering;}
-    public void setWatering(LocalDate watering) {this.watering = watering;}
+    public LocalDate getPlanted() { return planted; }
+    public void setPlanted(LocalDate planted) {
+        this.planted = planted;
+    }
 
-    public int getFrequencyOfWatering() {return frequencyOfWatering;}
-    public void setFrequencyOfWatering(int frequencyOfWatering) {this.frequencyOfWatering = frequencyOfWatering;}
+    public LocalDate getWatering() { return watering; }
+    public void setWatering(LocalDate watering) throws PlantException {
+        if (planted != null && watering != null && watering.isBefore(planted)) {
+            throw new PlantException(
+                    "Datum poslední zálivky (" + watering + ") nesmí být starší než datum zasazení (" + planted + ")."
+            );
+        }
+        this.watering = watering;
+    }
+
+    public int getFrequencyOfWatering() { return frequencyOfWatering; }
+    public void setFrequencyOfWatering(int frequencyOfWatering) throws PlantException {
+        if (frequencyOfWatering <= 0) {
+            throw new PlantException("Frekvence zálivky musí být kladné číslo (>= 1). Zadáno: " + frequencyOfWatering);
+        }
+        this.frequencyOfWatering = frequencyOfWatering;
+    }
 
     @Override
     public String toString() {
@@ -73,5 +87,6 @@ public class Plant {
                 '}';
     }
 }
+
 
 
