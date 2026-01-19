@@ -112,8 +112,9 @@ public class PlantManager {
                 String name = parts[0].trim();
                 String notes = parts[1]; // může být prázdné
                 String frequencyText = parts[2].trim();
-                String plantedText = parts[3].trim();
-                String wateringText = parts[4].trim();
+                String wateringText = parts[3].trim();
+                String plantedText = parts[4].trim();
+
 
                 int frequency;
                 try {
@@ -122,8 +123,9 @@ public class PlantManager {
                     throw new PlantException("Řádek " + lineNumber + ": frekvence zálivky není číslo: '" + frequencyText + "'");
                 }
 
-                LocalDate planted = parseDate(plantedText, lineNumber, "planted");
                 LocalDate watering = parseDate(wateringText, lineNumber, "watering");
+                LocalDate planted = parseDate(plantedText, lineNumber, "planted");
+
 
                 try {
                     Plant plant = new Plant(name, notes, planted, watering, frequency);
@@ -150,8 +152,8 @@ public class PlantManager {
                 String line = plant.getName() + "\t"
                         + plant.getNotes() + "\t"
                         + plant.getFrequencyOfWatering() + "\t"
-                        + plant.getPlanted().format(DATE_ISO) + "\t"
-                        + plant.getWatering().format(DATE_ISO);
+                        + plant.getWatering().format(DATE_ISO) + "\t"
+                        + plant.getPlanted().format(DATE_ISO);
 
                 writer.write(line);
                 writer.newLine();
