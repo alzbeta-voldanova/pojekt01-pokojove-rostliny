@@ -87,7 +87,7 @@ public class PlantManager {
      * - pokud vše proběhne OK, přepíše interní seznam plants,
      * - pokud nastane chyba, plants zůstane beze změny.
      *
-     * Formát řádku: name \t notes \t frequency \t planted \t watering
+     * Formát řádku: name \t notes \t frequency \t watering \t planted
      */
     public void loadFromFile(Path path) throws IOException, PlantException {
         List<Plant> loaded = new ArrayList<>();
@@ -144,7 +144,7 @@ public class PlantManager {
 
     /**
      * Uloží interní seznam do souboru (tabulátory) ve formátu:
-     * name \t notes \t frequency \t planted \t watering
+     * name \t notes \t frequency \t watering \t planted
      */
     public void saveToFile(Path path) throws IOException {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {

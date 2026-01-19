@@ -42,8 +42,8 @@ public class Plant {
         return watering.plusDays(frequencyOfWatering);
     }
 
-    public void doWateringNow() throws PlantException {
-        setWatering(LocalDate.now());
+    public void doWateringNow() {
+        this.watering = LocalDate.now();
     }
 
 

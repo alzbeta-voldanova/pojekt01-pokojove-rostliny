@@ -81,9 +81,11 @@ public class Main {
         try {
             reloaded.loadFromFile(output);
             System.out.println("\n7) Znovu načteno z " + output + ", počet rostlin: " + reloaded.size());
-        } catch (Exception e) {
-            System.err.println("\n7) Chyba při opětovném načtení: " + e.getMessage());
-            System.err.println("   Pokračuji s prázdným seznamem.");
+        } catch (PlantException e) {
+            System.err.println("\n7) Chyba v datech při načítání: " + e.getMessage());
+            reloaded = new PlantManager();
+        } catch (IOException e) {
+            System.err.println("\n7) Chyba při práci se souborem: " + e.getMessage());
             reloaded = new PlantManager();
         }
 
@@ -99,45 +101,8 @@ public class Main {
         for (Plant plant : reloaded.getPlants()) {
             System.out.println(plant.getName() + " | zálivka: " + plant.getWatering());
         }
-
     }
 }
 
-//        // B) Uložení do nového souboru
-//        try {
-//            manager.saveToFile(Path.of("data/kvetiny-vystup.txt"));
-//            System.out.println("OK: Uloženo do data/kvetiny-vystup.txt");
-//        } catch (Exception e) {
-//            System.err.println("CHYBA: Ukládání selhalo: " + e.getMessage());
-//        }
-//
-//        // C) Opětovné načtení výstupu
-//        PlantManager manager2 = new PlantManager();
-//        try {
-//            manager2.loadFromFile(Path.of("data/kvetiny-vystup.txt"));
-//            System.out.println("OK: Znovu načteno kvetiny-vystup.txt, počet rostlin = " + manager2.size());
-//        } catch (Exception e) {
-//            System.err.println("CHYBA: Opětovné načtení výstupu selhalo: " + e.getMessage());
-//        }
-//
-//        // D) Vadný soubor - špatné datum
-//        PlantManager badDate = new PlantManager();
-//        try {
-//            badDate.loadFromFile(Path.of("data/kvetiny-spatne-datum.txt"));
-//            System.err.println("CHYBA: vadný soubor se špatným datem se neměl načíst!");
-//        } catch (Exception e) {
-//            System.out.println("OK: Chyba u špatného data zachycena: " + e.getMessage());
-//            System.out.println("Počet rostlin po chybě = " + badDate.size());
-//        }
-//
-//        // E) Vadný soubor - špatná frekvence
-//        PlantManager badFreq = new PlantManager();
-//        try {
-//            badFreq.loadFromFile(Path.of("data/kvetiny-spatne-frekvence.txt"));
-//            System.err.println("CHYBA: vadný soubor se špatnou frekvencí se neměl načíst!");
-//        } catch (Exception e) {
-//            System.out.println("OK: Chyba u špatné frekvence zachycena: " + e.getMessage());
-//            System.out.println("Počet rostlin po chybě = " + badFreq.size());
-//        }
 
 
