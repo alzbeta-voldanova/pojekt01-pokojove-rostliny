@@ -1,6 +1,6 @@
 # První projekt – Pokojové rostliny (Java)
 
-Projekt do předmětu (Projekt 1): evidence pokojových rostlin, jejich zálivky a práce se seznamem rostlin včetně načítání/ukládání do souboru.
+evidence pokojových rostlin, jejich zálivky a práce se seznamem rostlin včetně načítání a ukládání do souboru.
 
 ---
 
