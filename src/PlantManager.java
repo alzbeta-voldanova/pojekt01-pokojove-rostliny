@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class PlantsManager {
+public class PlantManager {
 
     private final List<Plant> plants = new ArrayList<>();
     private SortMode sortMode = SortMode.NAME; // výchozí řazení
